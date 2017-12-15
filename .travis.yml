@@ -18,7 +18,7 @@ android:
 # 使用SDK新版本，但出現錯誤
 # Warning: License for package Android SDK Platform 27 not accepted.
 before_install:
-  - chmod + x gradlew   # 改變gradlew的訪問權限
+  - chmod +x gradlew   # 改變gradlew的訪問權限
   - yes | sdkmanager "platforms;android-27" # 版本太新，官方還沒有License
 
 
