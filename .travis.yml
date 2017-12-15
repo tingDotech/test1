@@ -1,19 +1,48 @@
 language: android
+
+notifications:       #每次構建的時候是否通知，如果不想收到通知郵箱（個人感覺郵件賊煩），那就設置false吧
+  email:  false
+
+  sudo:  false          #開啟基於容器的Travis CI任務，讓編譯效率更高。
+
 jdk: oraclejdk8
 android:
   components:
+  - tools
   - build-tools-27.0.0
   - android-27
-  - extra-android-m2repository
-  - extra-android-support
+  - extra-android-m2repository # Android Support Repository
+  - extra-android-support      # Support Library
 
+
+# 使用SDK新版本，但出現錯誤
+# Warning: License for package Android SDK Platform 27 not accepted.
 before_install:
-  - yes | sdkmanager "platforms;android-27"
+  - chmod + x gradlew   # 改變gradlew的訪問權限
+  - yes | sdkmanager "platforms;android-27" # 版本太新，官方還沒有License
+
+
+# 官方已經自動匯入全部的license，但如果有license問題，則可手動新增
 #licenses:
 #    - 'android-sdk-preview-license-.+'
 #    - 'android-sdk-license-.+'
 #    - 'google-gdk-license-.+'
 
 script:
-#  ./gradlew connectedAndroidTest
-  ./gradlew assembleRelease
+  ./gradlew assembleRelease # 打包 Release版本的APK
+  - . / gradlew assembleRelease
+
+  #部署之前
+  #使用mv命令進行修改apk文件的名字
+  before_deploy:
+   - mv app/build/outputs/apk/app - release.apk app/build/outputs/apk/test111.apk
+
+  #部署
+  deploy:
+    provider: releases #部署到GitHub Release，除此之外，Travis CI還支持發佈到fir.im、AWS、Google App Engine等
+    api_key:            #填寫GitHub的token （Settings -> Personal access tokens -> Generate new token）
+      secure: 5ce58b01fac1392811cf4e47296afa2390c1e492
+    file: app/build/outputs/apk/test111.apk    #部署文件路徑
+    skip_cleanup:  true      #設置為true以跳過清理,不然apk文件就會被清理
+    on:      #發佈時機
+      tags:  true        # tags設置為true表示只有在有tag的情況下才部署
