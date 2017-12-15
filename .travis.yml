@@ -3,7 +3,7 @@ language: android
 notifications:       #每次構建的時候是否通知，如果不想收到通知郵箱（個人感覺郵件賊煩），那就設置false吧
   email:  false
 
-  sudo:  false          #開啟基於容器的Travis CI任務，讓編譯效率更高。
+sudo:  false          #開啟基於容器的Travis CI任務，讓編譯效率更高。
 
 jdk: oraclejdk8
 android:
@@ -30,7 +30,6 @@ before_install:
 
 script:
   ./gradlew assembleRelease # 打包 Release版本的APK
-  - . / gradlew assembleRelease
 
   #部署之前
   #使用mv命令進行修改apk文件的名字
