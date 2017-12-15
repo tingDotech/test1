@@ -4,9 +4,10 @@ android:
   components:
     - build-tools-27.0.2
     - android-27
-#    - platform-tools
+    - platform-tools
 #    - extra-android-m2repository
 #    - extra-android-support
 
 script:
-  ./gradlew connectedAndroidTest
+#  ./gradlew connectedAndroidTest
+- "./gradlew assembleRelease"
