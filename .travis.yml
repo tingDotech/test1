@@ -37,11 +37,11 @@ script:
 #   - mv app/build/outputs/apk/app - release.apk app/build/outputs/apk/test111.apk
 
   #部署
-#  deploy:
-#    provider: releases #部署到GitHub Release，除此之外，Travis CI還支持發佈到fir.im、AWS、Google App Engine等
-#    api_key:            #填寫GitHub的token （Settings -> Personal access tokens -> Generate new token）
-#      secure: 5ce58b01fac1392811cf4e47296afa2390c1e492
-#    file: app/build/outputs/apk/test1.apk    #部署文件路徑
-#    skip_cleanup:  true      #設置為true以跳過清理,不然apk文件就會被清理
-#    on:      #發佈時機
-#      tags:  true        # tags設置為true表示只有在有tag的情況下才部署
+  deploy:
+    provider: releases #部署到GitHub Release，除此之外，Travis CI還支持發佈到fir.im、AWS、Google App Engine等
+    api_key:            #填寫GitHub的token （Settings -> Personal access tokens -> Generate new token）
+      secure: 5ce58b01fac1392811cf4e47296afa2390c1e492
+    file: app/build/outputs/apk/test1.apk    #部署文件路徑
+    skip_cleanup:  true      #設置為true以跳過清理,不然apk文件就會被清理
+    on:      #發佈時機
+      tags:  true        # tags設置為true表示只有在有tag的情況下才部署
