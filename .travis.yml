@@ -2,12 +2,10 @@ language: android
 jdk: oraclejdk8
 android:
   components:
-#  - tools
   - build-tools-25.0.0
   - android-25
-#  - platform-tools
-    - extra-android-m2repository
-    - extra-android-support
+  - extra-android-m2repository
+  - extra-android-support
 
 licenses:
     - 'android-sdk-preview-license-.+'
